@@ -1,11 +1,13 @@
 package com.skyluxsky;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Theatre {
     //Fields
     private final String theatreName;
+
+    //The collections framework contains many different data structures. Many of these are interchangeable
+    //This includes ArrayLists, LinkedLists, HashSets, and LinkedHashSets.
     private List<Seat> seats = new ArrayList<>();
 
     //Constructor
@@ -30,12 +32,14 @@ public class Theatre {
         return theatreName;
     }
 
-    //Reserves a Seat
-    public boolean reserveSeat(String seatNumber){
+    //Reserves a Seat (Brute Force Algorithm)(O (m * n))
+    //Searches every possible value until we find the value we are looking for...
+    public boolean reserveSeatBruteForce(String seatNumber){
         Seat requestedSeat = null;
 
         //Checks the string for all seats
         for (Seat seat : seats){
+            System.out.println(".");
             if (seat.getSeatNumber().equals(seatNumber)){
                 requestedSeat = seat;
                 break;
@@ -50,6 +54,50 @@ public class Theatre {
         return requestedSeat.reserve();
     }
 
+ /*************************Binary Search***********************************************/
+
+
+    //Binary Search Algorithm (O log(n))
+    public boolean reserveSeatBinaryTree(String seatNumber){
+        Seat requestedSeat = new Seat(seatNumber);//Gives us object for comparison purposes
+        int foundSeat = Collections.binarySearch(seats, requestedSeat, null); //uses comparable interface to compare requestedseat to the seats.
+
+        if (foundSeat >= 0){
+            return seats.get(foundSeat).reserve(); //returns true
+        } else {
+            System.out.println("There is no seat " + seatNumber);
+            return false;
+        }
+    }
+
+
+    //Example of Binary Tree From Java's Library
+    //More Modifiable than Code Above...
+    public boolean reserveSeatBinarySearchJava(String seatNumber){
+        int low = 0;
+        int high = seats.size()-1; //Last Element - 1
+
+        while (low <= high){
+            System.out.println(".");
+            int mid = ((low + high) / 2);// Splits Data in Half = mid point
+            Seat midVal = seats.get(mid);
+            int cmp = midVal.getSeatNumber().compareTo(seatNumber);
+
+            //Performs Comparison - Goes until values are equal, if not fails.
+            if (cmp < 0){
+                low = mid + 1;
+            } else if (cmp > 0){
+                high = mid - 1;
+            } else {
+                return seats.get(mid).reserve();
+            }
+        }
+        System.out.println("There is no seat " + seatNumber);
+        return false;
+    }
+
+ /*****************************************************************************************/
+
     //For Testing:
     public void getSeats(){
         for (Seat seat : seats){
@@ -59,7 +107,8 @@ public class Theatre {
 
 
     /**Inner class for Theatre Seats**/
-    private class Seat {
+    //We can improve performance by implementing a binary tree...
+    private class Seat implements Comparable<Seat> {
         private final String seatNumber;
         private boolean reserved = false;//Reserved True or False
 
@@ -89,8 +138,18 @@ public class Theatre {
             }
         }
 
+        //Gets Seat Number
         public String getSeatNumber() {
             return seatNumber;
+        }
+
+
+        //Sets up values for Binary Tree
+        @Override
+        public int compareTo(Seat seat) {
+            //returns a number less than zero, equal to zero, or greater than zero
+            // (sets up the ordering for binarytree)
+            return this.seatNumber.compareToIgnoreCase(seat.getSeatNumber());
         }
     }
 
