@@ -8,7 +8,7 @@ public class Theatre {
 
     //The collections framework contains many different data structures. Many of these are interchangeable
     //This includes ArrayLists, LinkedLists, HashSets, and LinkedHashSets.
-    private List<Seat> seats = new ArrayList<>();
+    public List<Seat> seats = new ArrayList<>();
 
     //Constructor
     //numRows = number of rows of seats
@@ -108,7 +108,7 @@ public class Theatre {
 
     /**Inner class for Theatre Seats**/
     //We can improve performance by implementing a binary tree...
-    private class Seat implements Comparable<Seat> {
+    public class Seat implements Comparable<Seat> {
         private final String seatNumber;
         private boolean reserved = false;//Reserved True or False
 
