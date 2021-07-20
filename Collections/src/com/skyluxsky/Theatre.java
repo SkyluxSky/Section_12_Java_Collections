@@ -8,7 +8,25 @@ public class Theatre {
 
     //The collections framework contains many different data structures. Many of these are interchangeable
     //This includes ArrayLists, LinkedLists, HashSets, and LinkedHashSets.
-    public List<Seat> seats = new ArrayList<>();
+    private List<Seat> seats = new ArrayList<>();
+
+    //Comparator Example - Anonymous Inner Class
+    static final Comparator<Seat> PRICE_ORDER;//Semi Colon Expected
+
+    static {
+        PRICE_ORDER = new Comparator<Seat>() {
+            @Override
+            public int compare(Seat seat1, Seat seat2) {
+                if (seat1.getPrice() < seat2.getPrice()) {
+                    return -1;
+                } else if (seat1.getPrice() > seat2.getPrice()) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        };
+    }
 
     //Constructor
     //numRows = number of rows of seats
@@ -20,8 +38,21 @@ public class Theatre {
         //Goes through and allocates seats for that section
         for (char row = 'A'; row <= lastRow; row++){
             for (int seatNum = 1; seatNum <= seatsPerRow; seatNum++){
+
+                //====================================================
+                //Manage Prices:
+                double price = 12.00;
+
+                if ((row < 'D') && (seatNum >= 4 && seatNum <= 9)){
+                    price = 14.00; //raised price
+                } else if (row > 'F' || (seatNum < 4 || seatNum > 9)){
+                    price = 7.00;//discount
+                }
+                //====================================================
+
+
                 //Format provides format where 0 is always in front of the declared value
-                Seat seat = new Seat(row + String.format("%02d",seatNum));//EX A01, B01, C01, C02 etc... (As String)
+                Seat seat = new Seat(row + String.format("%02d",seatNum), price);//EX A01, B01, C01, C02 etc... (As String)
                 seats.add(seat);
             }
         }
@@ -59,7 +90,7 @@ public class Theatre {
 
     //Binary Search Algorithm (O log(n))
     public boolean reserveSeatBinaryTree(String seatNumber){
-        Seat requestedSeat = new Seat(seatNumber);//Gives us object for comparison purposes
+        Seat requestedSeat = new Seat(seatNumber, 0);//Gives us object for comparison purposes
         int foundSeat = Collections.binarySearch(seats, requestedSeat, null); //uses comparable interface to compare requestedseat to the seats.
 
         if (foundSeat >= 0){
@@ -73,7 +104,7 @@ public class Theatre {
 
     //Example of Binary Tree From Java's Library
     //More Modifiable than Code Above...
-    public boolean reserveSeatBinarySearchJava(String seatNumber){
+    private boolean reserveSeatBinarySearchJava(String seatNumber){
         int low = 0;
         int high = seats.size()-1; //Last Element - 1
 
@@ -99,21 +130,24 @@ public class Theatre {
  /*****************************************************************************************/
 
     //For Testing:
-    public void getSeats(){
-        for (Seat seat : seats){
-            System.out.println(seat.getSeatNumber());
-        }
+    public Collection<Seat> getSeats(){
+        return seats;
+//        for (Seat seat : seats){
+//            System.out.println(seat.getSeatNumber());
+//        }
     }
 
 
-    /**Inner class for Theatre Seats**/
+/*******************************************Inner class for Theatre Seats******************************/
     //We can improve performance by implementing a binary tree...
     public class Seat implements Comparable<Seat> {
         private final String seatNumber;
+        private double price;
         private boolean reserved = false;//Reserved True or False
 
-        public Seat(String seatNumber) {
+        public Seat(String seatNumber, double price) {
             this.seatNumber = seatNumber;
+            this.price = price;
         }
 
         //reserves a seat
@@ -143,6 +177,9 @@ public class Theatre {
             return seatNumber;
         }
 
+        public double getPrice() {
+            return price;
+        }
 
         //Sets up values for Binary Tree
         @Override
@@ -152,6 +189,4 @@ public class Theatre {
             return this.seatNumber.compareToIgnoreCase(seat.getSeatNumber());
         }
     }
-
-
 }
