@@ -9,6 +9,8 @@ public class Main {
         //A Map takes two arguments <Key Value, Stored Value that is pointed to by the key>
         Map<String, String> languages = new HashMap<>();
 
+/**PUT*/
+
         //Checks if Java Exists - if not add
         if(languages.containsKey("Java")) {
             System.out.println("Java already exists");
@@ -32,7 +34,7 @@ public class Main {
             languages.put("Java", "This course is about Java");
         }
 
-
+/**GET*/
         //Prints out Java output.
         System.out.println(languages.get("Java"));
 
@@ -44,6 +46,32 @@ public class Main {
         //Loops through keys to print out contents (uses keyset() function)
         //Not returned sorted
         System.out.println("================================================");
+
+/**REMOVE*/
+        //Removes value based on key
+        //languages.remove("Lisp");
+
+        //Removes value based on all entries:
+        if (languages.remove("Algol", "a family of algorithmic languages")){
+            System.out.println("Algol removed...");
+        } else {
+            System.out.println("Algol not removed key value pair not found\n");
+        }
+        //Remove method checks for true and false.
+
+
+/**REPLACE*/
+
+        //Replaces LISP Entry - Displays previous entry
+        if (languages.replace("Lisp", "Therein lies madness", "a functional programming language with impressive features")){
+            System.out.println("Lisp Replaced");
+        } else {
+            System.out.println("Lisp was not replaced");
+        }
+
+        //Replaces Scala (Scala is not an entry, so this won't work)
+        System.out.println(languages.replace("Scala", "This will not be added"));
+        System.out.println();
 
         for(String key: languages.keySet()) {
             System.out.println(key + " : " + languages.get(key));
