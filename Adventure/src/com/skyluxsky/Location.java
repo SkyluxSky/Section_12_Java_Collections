@@ -15,6 +15,7 @@ public class Location {
         this.locationID = locationID;
         this.description = description;
         this.exits = new HashMap<String, Integer>();
+        this.exits.put("Q",0);//Adds location to the code that allows for user to Quit
     }
 
     //Methods
