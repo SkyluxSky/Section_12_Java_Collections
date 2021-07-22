@@ -13,6 +13,7 @@ public class Theatre {
     //Comparator Example - Anonymous Inner Class
     static final Comparator<Seat> PRICE_ORDER;//Semi Colon Expected
 
+    //Inconsistent WIth Equals - There are many seats that could share the same price...
     static {
         PRICE_ORDER = new Comparator<Seat>() {
             @Override
@@ -104,7 +105,7 @@ public class Theatre {
 
     //Example of Binary Tree From Java's Library
     //More Modifiable than Code Above...
-    private boolean reserveSeatBinarySearchJava(String seatNumber){
+    public boolean reserveSeatBinarySearchJava(String seatNumber){
         int low = 0;
         int high = seats.size()-1; //Last Element - 1
 
@@ -186,6 +187,7 @@ public class Theatre {
         public int compareTo(Seat seat) {
             //returns a number less than zero, equal to zero, or greater than zero
             // (sets up the ordering for binarytree)
+            //If the two seats are the same, then the function returns zero.
             return this.seatNumber.compareToIgnoreCase(seat.getSeatNumber());
         }
     }
