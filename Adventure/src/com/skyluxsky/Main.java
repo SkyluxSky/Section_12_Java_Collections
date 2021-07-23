@@ -1,5 +1,13 @@
 package com.skyluxsky;
 
+// Change the program to allow players to type full words, or phrases, then move to the
+// correct location based upon their input.
+// The player should be able to type commands such as "Go West", "run South", or just "East"
+// and the program will move to the appropriate location if there is one.  As at present, an
+// attempt to move in an invalid direction should print a message and remain in the same place.
+//
+// Single letter commands (N, W, S, E, Q) should still be available.
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -44,6 +52,13 @@ public class Main {
         locations.get(5).addExit("W",2);
         //locations.get(5).addExit("Q",0);
 
+        Map<String, String> vocabulary = new HashMap<String, String>();
+        vocabulary.put("QUIT","Q");
+        vocabulary.put("NORTH","N");
+        vocabulary.put("SOUTH","S");
+        vocabulary.put("WEST","W");
+        vocabulary.put("EAST","E");
+
 
         int loc = 1;
         while (true){
@@ -66,6 +81,21 @@ public class Main {
             //Gets directions and changes location
             String direction = scanner.nextLine().toUpperCase();
 
+            //Check direction from player, if direction is more than one character.
+            if (direction.length() > 1){
+                String[] words = direction.split(" ");//Splits words in user input
+
+                //Loops through entered user statement
+                for (String word : words){
+                    //Check if words contains Key Word
+                    if (vocabulary.containsKey(word)){
+                        direction = vocabulary.get(word);//direction equals word
+                        break;
+                    }
+                }
+            }
+
+            //For multi word responses, the statement below only reads the first letter of a word.
             if (exits.containsKey(direction)){
                 loc = exits.get(direction);
             } else {
@@ -86,6 +116,10 @@ public class Main {
         for(String i : building){
             System.out.println(i);
         }
+    }
+
+    public static void command(){
+
     }
 
 
