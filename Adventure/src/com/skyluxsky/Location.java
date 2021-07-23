@@ -11,11 +11,18 @@ public class Location {
     private final String description;
     private final Map<String, Integer> exits;
 
-    //Constructor
+    //Constructor -Will crash with null pointer exception for the Map Exits (Must test arguments)
     public Location(int locationID, String description, Map<String, Integer> exits) {
         this.locationID = locationID;
         this.description = description;
-        this.exits = new HashMap<String, Integer>(exits); //Creates another new hashmap (based on hashmap passed from main method)
+
+        //Fixes Null issue
+        if (exits != null){
+            this.exits = new HashMap<String, Integer>(exits); //Creates another new hashmap (based on hashmap passed from main method)
+        } else {
+            this.exits = new HashMap<String, Integer>();
+        }
+
         this.exits.put("Q",0);//Adds location to the code that allows for user to Quit
     }
 

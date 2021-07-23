@@ -10,6 +10,7 @@ package com.skyluxsky;
 
 /**Immutable Classes**/
 //Protect classes and programs from third parties.
+//Does not allow for change to existing classes and objects
 
 
 import java.util.HashMap;
@@ -132,5 +133,5 @@ public class Main {
             System.out.println(i);
         }
     }
-    
+
 }
