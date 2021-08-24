@@ -117,5 +117,19 @@ public class Main {
             System.out.println("\t" + moon.getName());
         }
 
+        //Add additional pluto (A set cannot contain two of the same object)
+        //the .equals() method needs to be rewritten to ensure that there are no duplicates in the set.
+
+        HeavenlyBody pluto = new HeavenlyBody("Pluto", 845);
+        planets.add(pluto);
+
+        for (HeavenlyBody planet : planets){
+            System.out.println(planet.getName() + ": " + planet.getOrbitalPeriod());
+        }
+
+        Object o = new Object();
+        o.equals(o);
+        "pluto".equals("");
+
     }
 }
