@@ -44,6 +44,7 @@ public final class HeavenlyBody {
         if (this == obj){
             return true;
         }
+
         System.out.println("obj.getClass() is " + obj.getClass());
         System.out.println("this.getClass() is " + this.getClass());
 
@@ -52,8 +53,19 @@ public final class HeavenlyBody {
             return false;
         }
 
+        //Casts the name to a heavenly body datatype.
         String objName = (((HeavenlyBody) obj).getName());
-        return  this.name.equals(objName);
+        return this.name.equals(objName);
+    }
+
+    //Override hashCode().
+    @Override
+    public int hashCode() {
+        //sets hashcode value for each object
+        // - if Stings are equal, they both have the same hashCode.
+        System.out.println("Hashcode Called.");
+        return this.name.hashCode() + 57; //Guarantees a non zero number is generated.
+
     }
 
 }
