@@ -16,69 +16,69 @@ public class Main {
 	    //A set has no defined order.
         //Sets do not contain duplicate values.
         //You cannot retrieve a specific element of a set
-        HeavenlyBody temp = new HeavenlyBody("Mercury", 88);
+        HeavenlyBody temp = new Planet("Mercury", 88);
         solarSystem.put(temp.getName(),temp);
         planets.add(temp);
 
-        temp = new HeavenlyBody("Venus", 88);
+        temp = new Planet("Venus", 88);
         solarSystem.put(temp.getName(),temp);
         planets.add(temp);
 
-        temp = new HeavenlyBody("Earth", 88);
+        temp = new Planet("Earth", 88);
         solarSystem.put(temp.getName(),temp);
         planets.add(temp);
 
-        HeavenlyBody tempMoon = new HeavenlyBody("Moon", 27);
+        HeavenlyBody tempMoon = new Moon("Moon", 27);
         solarSystem.put(tempMoon.getName(),tempMoon);
         //Adds moon to the last planet (Which is Earth).
         temp.addSatellite(tempMoon);
 
-        temp = new HeavenlyBody("Mars", 687);
+        temp = new Planet("Mars", 687);
         solarSystem.put(temp.getName(), temp);
         planets.add(temp);
 
-        tempMoon = new HeavenlyBody("Deimos", 1.3);
+        tempMoon = new Moon("Deimos", 1.3);
         solarSystem.put(tempMoon.getName(), tempMoon);
         temp.addSatellite(tempMoon); // temp is still Mars
 
-        tempMoon = new HeavenlyBody("Phobos", 0.3);
+        tempMoon = new Moon("Phobos", 0.3);
         solarSystem.put(tempMoon.getName(), tempMoon);
         temp.addSatellite(tempMoon); // temp is still Mars
 
-        temp = new HeavenlyBody("Jupiter", 4332);
+        temp = new Planet("Jupiter", 4332);
         solarSystem.put(temp.getName(), temp);
         planets.add(temp);
 
         //Temp is Jupiter (so all moons of Jupiter are added to temp)
-        tempMoon = new HeavenlyBody("Io", 1.8);
+        tempMoon = new Moon("Io", 1.8);
         solarSystem.put(tempMoon.getName(), tempMoon);
         temp.addSatellite(tempMoon); // temp is still Jupiter
 
-        tempMoon = new HeavenlyBody("Europa", 3.5);
+        tempMoon = new Moon("Europa", 3.5);
         solarSystem.put(tempMoon.getName(), tempMoon);
         temp.addSatellite(tempMoon); // temp is still Jupiter
 
-        tempMoon = new HeavenlyBody("Ganymede", 7.1);
+        tempMoon = new Moon("Ganymede", 7.1);
         solarSystem.put(tempMoon.getName(), tempMoon);
         temp.addSatellite(tempMoon); // temp is still Jupiter
 
-        tempMoon = new HeavenlyBody("Callisto", 16.7);
+        tempMoon = new Moon("Callisto", 16.7);
         solarSystem.put(tempMoon.getName(), tempMoon);
         temp.addSatellite(tempMoon); // temp is still Jupiter
 
-        temp = new HeavenlyBody("Saturn", 10759);
+        temp = new Planet("Saturn", 10759);
         solarSystem.put(temp.getName(), temp);
         planets.add(temp);
 
-        temp = new HeavenlyBody("Uranus", 30660);
+        temp = new Planet("Uranus", 30660);
         solarSystem.put(temp.getName(), temp);
         planets.add(temp);
 
-        temp = new HeavenlyBody("Neptune", 165);
+        temp = new Planet("Neptune", 165);
         solarSystem.put(temp.getName(), temp);
         planets.add(temp);
 
-        temp = new HeavenlyBody("Pluto", 248);
+        temp = new Planet("Pluto", 248);
         solarSystem.put(temp.getName(), temp);
         planets.add(temp);
 
@@ -120,16 +120,28 @@ public class Main {
         //Add additional pluto (A set cannot contain two of the same object)
         //the .equals() method needs to be rewritten to ensure that there are no duplicates in the set.
 
-        HeavenlyBody pluto = new HeavenlyBody("Pluto", 845);
+        HeavenlyBody pluto = new DwarfPlanet("Pluto", 845);
         planets.add(pluto);
 
+
+        System.out.println("To String Function: Converts all passed field values to strings");
         for (HeavenlyBody planet : planets){
-            System.out.println(planet.getName() + ": " + planet.getOrbitalPeriod());
+            //System.out.println(planet.getName() + ": " + planet.getOrbitalPeriod());
+            System.out.println(planet);
         }
 
         Object o = new Object();
         o.equals(o);
         "pluto".equals("");
+
+
+        //Test EqualsTo method
+        HeavenlyBody earth1 = new Planet("Earth",365);
+        HeavenlyBody earth2 = new Planet("Earth", 365);
+        System.out.println(earth1.equals(earth2));
+        System.out.println(earth2.equals(earth1));
+        System.out.println(earth1.equals((pluto)));
+        System.out.println(pluto.equals(earth1));
 
     }
 }
