@@ -1,14 +1,15 @@
 package com.skyluxsky;
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class StockList {
     private final Map<String, StockItem> list;
 
     public StockList() {
-        this.list = new HashMap<>(); //initialize list as HashMap<String, StockItem>
+        //A linked hash map orders items as they are placed into the Map!
+        this.list = new LinkedHashMap<>(); //initialize list as HashMap<String, StockItem>
     }
 
     //Add item to stock
@@ -44,23 +45,23 @@ public class StockList {
         return list.get(key);
     }
 
-    public Map<String,StockItem> Items(){
+    public Map<String,StockItem> items(){
         //Read only view of a Map.
         return Collections.unmodifiableMap(list);
     }
 
     @Override
     public String toString() {
-        String s = "\nStock List\n";
+        String s = "\nStock List:\n";
         double totalCost = 0.0;
         for (Map.Entry<String, StockItem> item : list.entrySet()){//entrySet == key value and pair
             StockItem stockItem = item.getValue();
             double itemValue = stockItem.getPrice() * stockItem.quantityInStock();
-            s = s + stockItem + ". There are " + stockItem.quantityInStock() + " in stock. Value of";
-            s = s + itemValue + "\n";
+            s = s + stockItem + ". There are " + stockItem.quantityInStock() + " in stock. Value of ";
+            s = s + String.format("%.2f",itemValue) + "\n"; // Formats calculated double to two decimal places...
             totalCost += itemValue;
         }
 
-        return s + " Total stock value " + totalCost;
+        return s + "Total stock value " + totalCost;
     }
 }
