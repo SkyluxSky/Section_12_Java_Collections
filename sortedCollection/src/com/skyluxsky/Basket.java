@@ -1,8 +1,6 @@
 package com.skyluxsky;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Basket {
     private final String name;
@@ -10,7 +8,8 @@ public class Basket {
 
     public Basket(String name) {
         this.name = name;
-        this.list = new HashMap<>();
+        //TreeMap uses compareto method to sort the output
+        this.list = new TreeMap<>();
     }
 
     public int addToBasket(StockItem item, int quantity){
@@ -29,12 +28,13 @@ public class Basket {
 
     @Override
     public String toString() {
-        String s = "\nShopping Basket" + name + " contains " + list.size() + " items\n";
+        //Use of Terenery Operator to determine the selected string.
+        String s = "\nShopping Basket " + name + " contains " + list.size() + ((list.size() == 1) ? " item \n" : " items\n");
         double totalCost = 0.0;
         for (Map.Entry<StockItem, Integer> item : list.entrySet()){
             s = s + item.getKey() + ". " + item.getValue() + " purchased\n";
             totalCost += item.getKey().getPrice() * item.getValue();
         }
-        return s + "Total cost" + totalCost;
+        return s + "Total cost " + totalCost;
     }
 }

@@ -45,6 +45,16 @@ public class StockList {
         return list.get(key);
     }
 
+    //Linked HashMap
+    public Map<String, Double> PriceList(){
+        Map<String,Double> priceList = new LinkedHashMap<>();
+        for(Map.Entry<String, StockItem> item : list.entrySet()){
+            priceList.put(item.getKey(),item.getValue().getPrice());
+        }
+        return Collections.unmodifiableMap(priceList);
+    }
+
+    //Returns a list of read only items
     public Map<String,StockItem> items(){
         //Read only view of a Map.
         return Collections.unmodifiableMap(list);
