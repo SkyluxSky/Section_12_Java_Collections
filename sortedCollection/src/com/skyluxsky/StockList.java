@@ -32,15 +32,43 @@ public class StockList {
 
     //Remove items from stock
     public int sellStock(String item, int quantity){
-        StockItem inStock = list.getOrDefault(item, null);
+        StockItem inStock = list.get(item);
+        if((inStock != null) && (quantity > 0)){
+            return inStock.finalizeStock(quantity);
+        }
+        return 0;
 
-        if ((inStock != null) && (inStock.quantityInStock() >= quantity) && (quantity > 0)){
-            inStock.adjustStock(-quantity); //negative value is adjusted
-            return quantity;
+        //Instead of calling the adjust stock method directly, we are now calling the finalizeStock method to outright change stock value.
+//        StockItem inStock = list.getOrDefault(item, null);
+//
+//        if ((inStock != null) && (inStock.quantityInStock() >= quantity) && (quantity > 0)){
+//            inStock.adjustStock(-quantity); //negative value is adjusted
+//            return quantity;
+//        }
+//        return 0;
+    }
+
+    //Reserve Items
+    public int reserveStock(String item, int quantity){
+        StockItem inStock = list.get(item);
+
+        if((inStock != null) && (quantity > 0)){
+            return inStock.reserveStock(quantity);
         }
         return 0;
     }
 
+    //Unreserve Items
+    public int unreserveStock(String item, int quantity){
+        StockItem inStock = list.get(item);
+
+        if((inStock != null) && (quantity > 0)){
+            return inStock.unreserveStock(quantity);
+        }
+        return 0;
+    }
+
+    //Get Stockitem name
     public StockItem get(String key){
         return list.get(key);
     }
