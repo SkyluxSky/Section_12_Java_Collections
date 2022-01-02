@@ -39,6 +39,10 @@ public class Basket {
         return 0;
     }
 
+    public void clearBasket(){
+        this.list.clear();//Clears the entire underlying list.
+    }
+
     public Map<StockItem, Integer> items(){
         return Collections.unmodifiableMap(list);
     }
