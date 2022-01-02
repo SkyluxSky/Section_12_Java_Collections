@@ -5,7 +5,7 @@ package com.skyluxsky;
 import java.util.Map;
 
 public class Main {
-    private static StockList stockList = new StockList();
+    private static final StockList stockList = new StockList();
 
     public static void main(String[] args) {
 	    StockItem temp = new StockItem("bread", 0.86, 100);
@@ -50,6 +50,7 @@ public class Main {
         }
 
         Basket camsBasket = new Basket("Cam");
+
         sellItem(camsBasket, "car", 1);
         System.out.println(camsBasket);
 
@@ -57,8 +58,10 @@ public class Main {
         System.out.println(camsBasket);
 
         sellItem(camsBasket, "car", 100);
+
+        //Test product that doesn't exist
         sellItem(camsBasket, "spanner", 5);
-        System.out.println(camsBasket);
+        //System.out.println(camsBasket);
 
         if (sellItem(camsBasket, "car",1)!= 1){
             System.out.println("There are no more cars in stock!");
@@ -67,8 +70,35 @@ public class Main {
         sellItem(camsBasket, "juice", 4);
         sellItem(camsBasket, "cup", 12);
         sellItem(camsBasket, "bread", 1);
+        //System.out.println(camsBasket);
+
+        //System.out.println(stockList);
+
+        //Test New Functionality
+        Basket basket = new Basket("customer");
+        sellItem(basket,"cup", 100);
+        sellItem(basket,"juice", 5);
+        removeItem(basket,"cup", 1);
+        System.out.println(basket);
+
+        removeItem(camsBasket, "car", 1);
+        removeItem(camsBasket, "cup", 9);
+        removeItem(camsBasket, "car", 1);
+        System.out.println("cars removed: " + removeItem(camsBasket, "car", 1)); //should not remove any cars from basket
         System.out.println(camsBasket);
 
+        //remove all item from basket
+        removeItem(camsBasket, "bread", 1);
+        removeItem(camsBasket, "cup", 3);
+        removeItem(camsBasket, "juice", 4);
+        removeItem(camsBasket, "cup", 3);
+        System.out.println(camsBasket);
+
+        System.out.println("\nDisplay stock list before and after checkout");
+        System.out.println(basket);
+        System.out.println(stockList);
+        checkOut(basket);
+        System.out.println(basket);
         System.out.println(stockList);
 
         //Unsupported operation exception
@@ -77,15 +107,23 @@ public class Main {
         //stockList.items().put(temp.getName(), temp);
 
         //Can adjust stock value from main class
-        stockList.items().get("car").adjustStock(2000);
-        stockList.get("car").adjustStock(-1000);
+        StockItem car = stockList.items().get("car");
+        //test boundary conditions
+        if (car != null){
+            car.adjustStock(2000);
+        }
+        if (car != null){
+            stockList.get("car").adjustStock(-1000);
+        }
         System.out.println(stockList);
 
         //Immutable Linked list
-        for (Map.Entry<String, Double> price : stockList.PriceList().entrySet()){
-            System.out.println(price.getKey() + " costs " + price.getValue());
-        }
+//        for (Map.Entry<String, Double> price : stockList.PriceList().entrySet()){
+//            System.out.println(price.getKey() + " costs " + price.getValue());
+//        }
 
+        checkOut(camsBasket);
+        System.out.println(camsBasket);
 
     }
 
